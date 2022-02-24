@@ -1,3 +1,6 @@
+import ImageDragSelector from './lib/ImageDragSelector';
+import './style.css';
+
 export default function App() {
-  return <div></div>;
+  return <ImageDragSelector></ImageDragSelector>;
 }
