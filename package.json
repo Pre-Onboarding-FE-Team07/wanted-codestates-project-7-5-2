@@ -1,25 +1,39 @@
 {
-  "name": "react-image-drag-selector",
-  "version": "0.0.1",
+  "name": "react-image-area-selector",
+  "version": "0.0.2",
   "private": false,
-  "description": "drag and select a partial area of the image",
-  "module": "dist/react-image-drag-selector.js",
-  "main": "dist/react-image-drag-selector.js",
+  "description": "Select the partial image by dragging an area",
+  "module": "dist/index.js",
+  "main": "dist/index.js",
+  "homepage": "https://github.com/Pre-Onboarding-FE-Team07/wanted-codestates-project-7-5-2",
   "repository": "https://github.com/Pre-Onboarding-FE-Team07/wanted-codestates-project-7-5-2.git",
-  "author": "jinyongp <dev.jinyongp@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/Pre-Onboarding-FE-Team07/wanted-codestates-project-7-5-2/issues"
+  },
+  "contributors": [
+    "jinyongp <dev.jinyongp@gmail.com> (https://jinyongp.dev)",
+    "jeonghun10 <jeonghun8910@gmail.com> (https://velog.io/@jeonghun8910)"
+  ],
   "license": "MIT",
   "files": [
-    "/dist"
+    "README.md",
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "drag",
+    "image"
   ],
   "scripts": {
     "start:dev": "webpack serve --env development",
     "build:dev": "webpack --env development",
-    "prebuild": "rm -rf dist && mkdir dist",
-    "build": "babel src/lib --out-file dist/react-image-drag-selector.jsx",
+    "prebuild": "rimraf dist && mkdir dist",
+    "build": "babel src -d dist",
     "prepare": "husky install"
   },
   "peerDependencies": {
-    "react": ">=17.0.0"
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "dependencies": {
     "prop-types": "^15.8.1",

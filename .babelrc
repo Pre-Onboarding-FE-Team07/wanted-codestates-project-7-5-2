@@ -1,3 +1,8 @@
 {
-  "presets": ["@babel/preset-env", "@babel/preset-react"]
+  "compact": true,
+  "minified": true,
+  "presets": [
+    "@babel/preset-env",
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ]
 }

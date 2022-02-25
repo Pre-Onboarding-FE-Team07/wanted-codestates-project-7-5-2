@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
-import useCanvas from '../../hooks/useCanvas';
-import { useCanvasContext } from '../ImageDragSelector';
+import useCanvas from '../hooks/useCanvas';
+import { useCanvasContext } from '../ImageAreaSelector';
 
 export default function DrawingCanvas() {
   const { imageWidth, imageHeight, area, setArea } = useCanvasContext();

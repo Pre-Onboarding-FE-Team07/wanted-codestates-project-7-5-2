@@ -6,10 +6,10 @@ import {
   useEffect,
   useState,
 } from 'react';
-import useCanvas from '../hooks/useCanvas';
 import Canvas from './components/Canvas';
 import DrawingCanvas from './components/DrawingCanvas';
 import NameList from './components/NameList';
+import useCanvas from './hooks/useCanvas';
 
 const CanvasContext = createContext();
 export const useCanvasContext = () => {
@@ -17,7 +17,7 @@ export const useCanvasContext = () => {
   return context;
 };
 
-export default function ImageDragSelector({ src, width, height }) {
+export default function ImageAreaSelector({ src, width, height }) {
   const [imageWidth, setImageWidth] = useState(width);
   const [imageHeight, setImageHeight] = useState(height);
   const [canvasList, setCanvasList] = useState([]);
@@ -75,18 +75,18 @@ export default function ImageDragSelector({ src, width, height }) {
       }}
     >
       <div style={{ position: 'relative' }}>
-        <NameList offsetLeft={10} offsetTop={10} />
+        <NameList offsetLeft={10} offsetTop={0} />
         <canvas ref={canvasRef} />
         <DrawingCanvas />
-        {canvasList.map(({ name, ref }, index) => (
-          <Canvas key={index} ref={ref} name={name} />
+        {canvasList.map(({ name, ref, area }, index) => (
+          <Canvas key={index} ref={ref} name={name} area={area} />
         ))}
       </div>
     </CanvasContext.Provider>
   );
 }
 
-ImageDragSelector.propTypes = {
+ImageAreaSelector.propTypes = {
   src: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,

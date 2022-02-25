@@ -8,11 +8,7 @@ module.exports = {
   devServer: { port: 4000 },
   resolve: { extensions: ['.js', '.jsx'] },
   entry: {
-    bundle: ['./src/index'],
-  },
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: '[name].js',
+    bundle: ['./test/index'],
   },
   module: {
     rules: [
@@ -38,7 +34,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html',
+      template: './test/index.html',
     }),
   ],
 };

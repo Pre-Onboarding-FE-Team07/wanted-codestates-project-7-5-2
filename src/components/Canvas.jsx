@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { forwardRef, useEffect } from 'react';
-import { useCanvasContext } from '../ImageDragSelector';
+import { useCanvasContext } from '../ImageAreaSelector';
 
-const Canvas = forwardRef(({ name }, ref) => {
-  const { area, imageWidth, imageHeight } = useCanvasContext();
+const Canvas = forwardRef(({ name, area }, ref) => {
+  const { imageWidth, imageHeight } = useCanvasContext();
 
   useEffect(() => {
     const ctx = ref.current.getContext('2d');
@@ -23,6 +23,7 @@ const Canvas = forwardRef(({ name }, ref) => {
       ref={ref}
       width={imageWidth}
       height={imageHeight}
+      data-id={`${name}+${Date.now()}`}
       style={{ position: 'absolute', top: 0, left: 0 }}
     />
   );
@@ -32,6 +33,7 @@ Canvas.displayName = 'Canvas';
 
 Canvas.propTypes = {
   name: PropTypes.string,
+  area: PropTypes.object,
 };
 
 export default Canvas;
