@@ -1,15 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import useCanvas from '../hooks/useCanvas';
 import { useCanvasContext } from '../ImageAreaSelector';
 
 export default function DrawingCanvas() {
   const { imageWidth, imageHeight, area, setArea } = useCanvasContext();
-  const { canvasRef, ctxRef, setSize } = useCanvas();
+  const { canvasRef, ctxRef } = useCanvas();
   const isDrawing = useRef(false);
-
-  useEffect(() => {
-    setSize(imageWidth, imageHeight);
-  }, [imageWidth, imageHeight]);
 
   const clearDrawBox = () => {
     ctxRef.current.clearRect(0, 0, imageWidth, imageHeight);
@@ -18,10 +14,11 @@ export default function DrawingCanvas() {
   const drawCanvasBox = ({ mx, my }) => {
     clearDrawBox();
     const { sx, sy } = area;
-    ctxRef.current.fillStyle = 'rgba(253, 121, 168, 0.3)';
-    ctxRef.current.strokeStyle = 'rgba(232, 67, 147, 1.0)';
-    ctxRef.current.fillRect(sx, sy, mx - sx, my - sy);
-    ctxRef.current.strokeRect(sx, sy, mx - sx, my - sy);
+    const ctx = ctxRef.current;
+    ctx.fillStyle = 'rgba(253, 121, 168, 0.3)';
+    ctx.strokeStyle = 'rgba(232, 67, 147, 1.0)';
+    ctx.fillRect(sx, sy, mx - sx, my - sy);
+    ctx.strokeRect(sx, sy, mx - sx, my - sy);
   };
 
   const onMouseDown = ({ nativeEvent: { offsetX: x, offsetY: y } }) => {
@@ -47,6 +44,8 @@ export default function DrawingCanvas() {
       onMouseDown={onMouseDown}
       onMouseMove={onMouseMove}
       onMouseUp={onMouseUp}
+      width={imageWidth}
+      height={imageHeight}
       style={{ position: 'absolute', top: 0, left: 0, zIndex: 50 }}
     />
   );
