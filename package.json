@@ -1,6 +1,6 @@
 {
   "name": "react-image-area-selector",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "private": false,
   "description": "Select the partial image by dragging an area",
   "module": "dist/index.js",
