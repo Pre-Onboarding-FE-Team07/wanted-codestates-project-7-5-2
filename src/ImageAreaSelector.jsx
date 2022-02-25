@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import AreaCanvas from './components/AreaCanvas';
 import DrawingCanvas from './components/DrawingCanvas';
-import ImageCanvas from './components/ImageCanvas';
 import NameList from './components/NameList';
 import { getUniqueId } from './utils/util';
 
@@ -17,6 +16,7 @@ export default function ImageAreaSelector({ src, width, height }) {
   const [imageHeight, setImageHeight] = useState(height);
   const [selectedAreaList, setSelectedAreaList] = useState([]);
   const [area, setArea] = useState({ sx: 0, sy: 0, dx: 0, dy: 0 });
+  const imgRef = useRef();
 
   useEffect(() => {
     if (area.dx && area.dy) {
@@ -27,6 +27,11 @@ export default function ImageAreaSelector({ src, width, height }) {
       setSelectedAreaList([...selectedAreaList]);
     }
   }, [area]);
+
+  useEffect(() => {
+    setImageWidth(imgRef.current.width);
+    setImageHeight(imgRef.current.height);
+  }, []);
 
   return (
     <CanvasContext.Provider
@@ -42,8 +47,8 @@ export default function ImageAreaSelector({ src, width, height }) {
       }}
     >
       <div style={{ position: 'relative' }}>
+        <img src={src} ref={imgRef} width={width} height={height} alt="" />
         <NameList offsetLeft={10} />
-        <ImageCanvas src={src} width={width} height={height} />
         <AreaCanvas />
         <DrawingCanvas />
       </div>
