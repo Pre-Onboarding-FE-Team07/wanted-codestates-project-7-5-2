@@ -4,11 +4,6 @@ export default function useCanvas(options) {
   const canvasRef = useRef();
   const ctxRef = useRef();
 
-  const setSize = (width, height) => {
-    canvasRef.current.width = width;
-    canvasRef.current.height = height;
-  };
-
   useEffect(() => {
     if (canvasRef.current) {
       ctxRef.current = canvasRef.current.getContext('2d');
@@ -21,5 +16,5 @@ export default function useCanvas(options) {
     }
   }, []);
 
-  return { canvasRef, ctxRef, setSize };
+  return { canvasRef, ctxRef };
 }

@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types';
 import { useCanvasContext } from '../ImageAreaSelector';
 
-export default function NameList({ offsetLeft, offsetTop }) {
-  const { canvasList, setCanvasList } = useCanvasContext();
+export default function NameList({ offsetLeft = 0, offsetTop = 0 }) {
+  const { selectedAreaList, setSelectedAreaList } = useCanvasContext();
 
-  // console.log(
-  //   canvasList.map(({ name, ref }) => [name, ref.current?.dataset.id])
-  // );
-
-  return canvasList.length ? (
+  return selectedAreaList.length ? (
     <ul
       style={{
         position: 'absolute',
@@ -21,14 +17,12 @@ export default function NameList({ offsetLeft, offsetTop }) {
         zIndex: 100,
       }}
     >
-      {canvasList.map(({ name, ref }, index) => (
+      {selectedAreaList.map(({ name, id }, index) => (
         <li style={{ color: 'black', margin: 2 }} key={index}>
           <button
             style={{ fontSize: 14, padding: '0px 3px', cursor: 'pointer' }}
             onClick={() =>
-              setCanvasList(
-                canvasList.filter(({ ref: canvasRef }) => canvasRef !== ref)
-              )
+              setSelectedAreaList(selectedAreaList.filter((a) => a.id !== id))
             }
           >
             ×

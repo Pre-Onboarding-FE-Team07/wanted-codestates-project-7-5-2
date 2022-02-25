@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types';
-import {
-  createContext,
-  createRef,
-  useContext,
-  useEffect,
-  useState,
-} from 'react';
-import Canvas from './components/Canvas';
+import { createContext, useContext, useEffect, useState } from 'react';
+import AreaCanvas from './components/AreaCanvas';
 import DrawingCanvas from './components/DrawingCanvas';
+import ImageCanvas from './components/ImageCanvas';
 import NameList from './components/NameList';
-import useCanvas from './hooks/useCanvas';
+import { getUniqueId } from './utils/util';
 
 const CanvasContext = createContext();
 export const useCanvasContext = () => {
@@ -20,67 +15,37 @@ export const useCanvasContext = () => {
 export default function ImageAreaSelector({ src, width, height }) {
   const [imageWidth, setImageWidth] = useState(width);
   const [imageHeight, setImageHeight] = useState(height);
-  const [canvasList, setCanvasList] = useState([]);
-  const [area, setArea] = useState({ sx: null, sy: null, dx: null, dy: null });
-  const { canvasRef, ctxRef, setSize } = useCanvas();
+  const [selectedAreaList, setSelectedAreaList] = useState([]);
+  const [area, setArea] = useState({ sx: 0, sy: 0, dx: 0, dy: 0 });
 
   useEffect(() => {
-    const image = new Image();
-    image.src = src;
-    image.addEventListener('load', () => {
-      const { naturalWidth: nw, naturalHeight: nh } = image;
-      if (width && height) {
-        image.width = width;
-        image.height = height;
-      } else if (width) {
-        image.width = width;
-        image.height = (+nh / +nw) * width;
-        height = image.height;
-      } else if (height) {
-        image.height = height;
-        image.width = (+nw / +nh) * height;
-        width = image.width;
-      } else {
-        width = nw;
-        height = nh;
-      }
-      setSize(width, height);
-      setImageWidth(width);
-      setImageHeight(height);
-      ctxRef.current.drawImage(image, 0, 0, width, height);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (area.dx && area.dy) onDrawEnd();
+    if (area.dx && area.dy) {
+      const name = window.prompt('이름을 입력해주세요.');
+      if (!name) return;
+      const id = getUniqueId();
+      selectedAreaList.push({ id, name, area });
+      setSelectedAreaList([...selectedAreaList]);
+    }
   }, [area]);
-
-  const onDrawEnd = () => {
-    const name = window.prompt('이름을 입력해주세요.');
-    if (!name) return;
-    const ref = createRef();
-    canvasList.push({ name, ref, area });
-    setCanvasList([...canvasList]);
-  };
 
   return (
     <CanvasContext.Provider
       value={{
         imageWidth,
+        setImageWidth,
         imageHeight,
+        setImageHeight,
         area,
         setArea,
-        canvasList,
-        setCanvasList,
+        selectedAreaList,
+        setSelectedAreaList,
       }}
     >
       <div style={{ position: 'relative' }}>
-        <NameList offsetLeft={10} offsetTop={0} />
-        <canvas ref={canvasRef} />
+        <NameList offsetLeft={10} />
+        <ImageCanvas src={src} width={width} height={height} />
+        <AreaCanvas />
         <DrawingCanvas />
-        {canvasList.map(({ name, ref, area }, index) => (
-          <Canvas key={index} ref={ref} name={name} area={area} />
-        ))}
       </div>
     </CanvasContext.Provider>
   );
