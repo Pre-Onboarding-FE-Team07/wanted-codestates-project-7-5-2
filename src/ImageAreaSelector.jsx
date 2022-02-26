@@ -12,6 +12,7 @@ export const useCanvasContext = () => {
 };
 
 export default function ImageAreaSelector({ src, width, height }) {
+  const [loaded, setLoaded] = useState(false);
   const [imageWidth, setImageWidth] = useState(width);
   const [imageHeight, setImageHeight] = useState(height);
   const [selectedAreaList, setSelectedAreaList] = useState([]);
@@ -31,7 +32,7 @@ export default function ImageAreaSelector({ src, width, height }) {
   useEffect(() => {
     setImageWidth(imgRef.current.width);
     setImageHeight(imgRef.current.height);
-  }, []);
+  }, [loaded]);
 
   return (
     <CanvasContext.Provider
@@ -47,7 +48,16 @@ export default function ImageAreaSelector({ src, width, height }) {
       }}
     >
       <div style={{ position: 'relative' }}>
-        <img src={src} ref={imgRef} width={width} height={height} alt="" />
+        <img
+          src={src}
+          ref={imgRef}
+          width={width}
+          height={height}
+          alt="no source"
+          draggable={false}
+          style={{ zIndex: -1 }}
+          onLoad={() => setLoaded(true)}
+        />
         <NameList offsetLeft={10} />
         <AreaCanvas />
         <DrawingCanvas />

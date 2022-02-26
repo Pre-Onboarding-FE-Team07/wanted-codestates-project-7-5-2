@@ -1,15 +1,9 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'eval-source-map',
-  devServer: { port: 4000 },
   resolve: { extensions: ['.js', '.jsx'] },
-  entry: {
-    bundle: ['./test/index'],
-  },
+  entry: { bundle: ['./web'] },
   module: {
     rules: [
       {
@@ -34,7 +28,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './test/index.html',
+      template: './web/index.html',
     }),
   ],
 };
