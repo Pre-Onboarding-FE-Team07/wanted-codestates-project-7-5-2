@@ -47,7 +47,14 @@ export default function ImageAreaSelector({ src, width, height }) {
       }}
     >
       <div style={{ position: 'relative' }}>
-        <img src={src} ref={imgRef} width={width} height={height} alt="" />
+        <img
+          src={src}
+          ref={imgRef}
+          width={width}
+          height={height}
+          alt="no source"
+          draggable={false}
+        />
         <NameList offsetLeft={10} />
         <AreaCanvas />
         <DrawingCanvas />
