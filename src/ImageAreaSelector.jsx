@@ -54,6 +54,7 @@ export default function ImageAreaSelector({ src, width, height }) {
           height={height}
           alt="no source"
           draggable={false}
+          style={{ zIndex: -1 }}
         />
         <NameList offsetLeft={10} />
         <AreaCanvas />
