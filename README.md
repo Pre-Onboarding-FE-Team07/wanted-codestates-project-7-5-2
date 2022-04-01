@@ -2,7 +2,7 @@
 
 이미지의 특정 영역을 드래그하여 선택하고 조작합니다.
 
->[프로젝트 진행 후기](./project.md)
+### [프로젝트 진행 후기](./project.md)
 
 ![test gif](assets/test.gif)
 
