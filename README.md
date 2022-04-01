@@ -4,12 +4,16 @@
 
 >[프로젝트 진행 후기](./project.md)
 
+![test gif](assets/test.gif)
+
 ## 목차 <!-- omit in toc -->
 
 - [배포 주소](#배포-주소)
 - [실행 방법](#실행-방법)
 - [NPM 설치 방법](#npm-설치-방법)
 - [사용 방법](#사용-방법)
+  - [Props](#props)
+  - [예시](#예시)
 
 ## 배포 주소
 
@@ -48,14 +52,19 @@ React, ReactDOM(>=17.0.0)을 필요로 합니다.
 
 ## 사용 방법
 
-| Prop   | Description   |
-| :----- | :------------ |
-| src    | 이미지의 주소 |
-| width  | 이미지의 너비 |
-| height | 이미지의 높이 |
+### Props
 
+- `src`: 이미지의 주소 (required)
+- `width`: 이미지의 너비
+- `height`: 이미지의 높이
+
+### 예시
 
 ```jsx
-const source = '...';
-ReactDOM.render(<ImageAreaSelector src={source} width={500} />, document.getElementById('root'));
+const source = '<image path>';
+
+ReactDOM.render(
+  <ImageAreaSelector src={source} width={500} />,
+  document.getElementById('root'),
+);
 ```
