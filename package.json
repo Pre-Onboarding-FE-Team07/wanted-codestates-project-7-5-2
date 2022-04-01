@@ -1,6 +1,6 @@
 {
   "name": "react-image-area-selector",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": false,
   "description": "Select the partial image by dragging an area",
   "module": "dist/index.js",
@@ -30,6 +30,7 @@
     "build:npm": "babel src -d dist",
     "predeploy:web": "yarn build:web",
     "deploy:web": "surge ./dist wanted-codestates-project-7-5-2.surge.sh",
+    "prepublishOnly": "yarn build:npm",
     "prepare": "husky install"
   },
   "peerDependencies": {
